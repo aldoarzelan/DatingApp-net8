@@ -1,6 +1,6 @@
 using API.Controllers;
+using API.Data;
 using API.Entities;
-using DatingApp.API.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

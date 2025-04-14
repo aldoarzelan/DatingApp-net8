@@ -1,8 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
+using API.Data;
 using API.DTOs;
-using API.Entities;
-using DatingApp.API.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,23 +14,24 @@ public class AccountController(DataContext context, ITokenService tokenService) 
     {
         if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
-        using var hmac = new HMACSHA512();
+        return Ok();
+        // using var hmac = new HMACSHA512();
 
-        var user = new AppUser
-        {
-            UserName = registerDto.Username.ToLower(),
-            PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
-        };
+        // var user = new AppUser
+        // {
+        //     UserName = registerDto.Username.ToLower(),
+        //     PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+        //     PasswordSalt = hmac.Key
+        // };
 
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
+        // context.Users.Add(user);
+        // await context.SaveChangesAsync();
 
-        return new userDto
-        {
-            username = user.UserName,
-            token = tokenService.CreateToken(user),
-        };
+        // return new userDto
+        // {
+        //     username = user.UserName,
+        //     token = tokenService.CreateToken(user),
+        // };
     }
 
     [HttpPost("login")] // account/login
